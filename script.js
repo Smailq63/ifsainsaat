@@ -180,7 +180,15 @@ if (contactForm) {
       formMessage.style.color = '#f2b100';
       return;
     }
-    formMessage.textContent = 'Mesajınız başarıyla gönderildi!';
+    // WhatsApp mesajı oluştur
+    const wpMesaj =
+      `*İLETİŞİM FORMU*%0A` +
+      `Ad Soyad: ${encodeURIComponent(name)}%0A` +
+      `E-posta: ${encodeURIComponent(email)}%0A` +
+      `Mesaj: ${encodeURIComponent(message)}`;
+    const wpUrl = `https://wa.me/905323942628?text=${wpMesaj}`;
+    window.open(wpUrl, '_blank');
+    formMessage.textContent = 'WhatsApp üzerinden mesajınız iletilecek.';
     formMessage.style.color = '#1e3a8a';
     contactForm.reset();
   });
@@ -203,4 +211,123 @@ if (menuToggle && navMenu) {
       navMenu.classList.remove('open');
     });
   });
-} 
+}
+
+// Tanıtım videosu: hover ile ses aç/kapat
+const promoVideo = document.getElementById('promoVideo');
+if (promoVideo) {
+  promoVideo.volume = 1;
+  promoVideo.muted = true;
+  promoVideo.addEventListener('mouseenter', function() {
+    promoVideo.muted = false;
+  });
+  promoVideo.addEventListener('mouseleave', function() {
+    promoVideo.muted = true;
+  });
+}
+
+// SSS (FAQ) akordeon işlevi
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(q => {
+  q.addEventListener('click', function() {
+    const item = this.parentElement;
+    item.classList.toggle('active');
+    // Diğer açık olanları kapat
+    document.querySelectorAll('.faq-item').forEach(other => {
+      if (other !== item) other.classList.remove('active');
+    });
+  });
+});
+
+// Teklif Al formu işlevi
+const teklifForm = document.getElementById('teklifForm');
+const teklifMsg = document.getElementById('teklifForm-msg');
+if (teklifForm) {
+  teklifForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Basit doğrulama
+    const ad = teklifForm['ad'].value.trim();
+    const tel = teklifForm['tel'].value.trim();
+    const email = teklifForm['email'].value.trim();
+    const tur = teklifForm['tur'].value;
+    const aciklama = teklifForm['aciklama'].value.trim();
+    if (!ad || !tel || !email || !tur || !aciklama) {
+      teklifMsg.textContent = 'Lütfen tüm alanları doldurun.';
+      teklifMsg.style.color = 'red';
+      return;
+    }
+    if (!validateEmail(email)) {
+      teklifMsg.textContent = 'Geçerli bir e-posta adresi giriniz.';
+      teklifMsg.style.color = 'red';
+      return;
+    }
+    // WhatsApp mesajı oluştur
+    const mesaj =
+      `*TEKLİF FORMU*%0A` +
+      `Ad Soyad: ${encodeURIComponent(ad)}%0A` +
+      `Telefon: ${encodeURIComponent(tel)}%0A` +
+      `E-posta: ${encodeURIComponent(email)}%0A` +
+      `Proje Türü: ${encodeURIComponent(tur)}%0A` +
+      `Açıklama: ${encodeURIComponent(aciklama)}`;
+    const whatsappUrl = `https://wa.me/905323942628?text=${mesaj}`;
+    window.open(whatsappUrl, '_blank');
+    teklifMsg.textContent = 'WhatsApp üzerinden teklif talebiniz iletilecek.';
+    teklifMsg.style.color = 'green';
+    teklifForm.reset();
+  });
+}
+
+// Hizmet Detay Modalı
+const serviceDetails = {
+  yonetim: {
+    title: 'Taahhüt ve Proje Yönetimi',
+    body: 'Projelerinizi anahtar teslim olarak, planlama, bütçelendirme, tedarik, uygulama ve teslim süreçlerinin tamamında profesyonel yönetim anlayışıyla yürütüyoruz. Süreç boyunca şeffaf raporlama ve müşteri bilgilendirmesi sağlanır.'
+  },
+  mimari: {
+    title: 'Mimari ve Statik Tasarım',
+    body: 'Uzman mimar ve mühendis kadromuzla, modern ve fonksiyonel yapılar için özgün mimari ve statik projeler hazırlıyoruz. Tasarımlarımızda estetik, güvenlik ve sürdürülebilirlik ön plandadır.'
+  },
+  restorasyon: {
+    title: 'Renovasyon & Restorasyon',
+    body: 'Tarihi ve mevcut yapıların aslına uygun şekilde yenilenmesi, güçlendirilmesi ve modern standartlara kavuşturulması için kapsamlı renovasyon ve restorasyon hizmetleri sunuyoruz.'
+  },
+  danismanlik: {
+    title: 'Danışmanlık & Teknik Destek',
+    body: 'Proje öncesi fizibilite, malzeme seçimi, uygulama süreci ve sonrası için teknik danışmanlık ve destek sağlıyoruz. Her aşamada profesyonel rehberlik sunuyoruz.'
+  },
+  yesil: {
+    title: 'Sürdürülebilir ve Yeşil Bina Çözümleri',
+    body: 'Enerji verimliliği yüksek, çevre dostu ve sürdürülebilir bina çözümleriyle geleceğe yatırım yapıyoruz. Yeşil bina sertifikasyon süreçlerinde de danışmanlık veriyoruz.'
+  },
+  guvenlik: {
+    title: 'İş Güvenliği ve Kalite Kontrol',
+    body: 'Tüm projelerde ulusal ve uluslararası standartlara uygunluk, iş güvenliği ve kalite kontrol süreçleri titizlikle uygulanır. Sıfır hata ve maksimum güvenlik hedeflenir.'
+  }
+};
+
+const serviceModal = document.getElementById('service-modal');
+const serviceModalTitle = document.getElementById('service-modal-title');
+const serviceModalBody = document.getElementById('service-modal-body');
+const serviceModalClose = document.querySelector('.service-modal-close');
+
+document.querySelectorAll('.service-detail-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const key = btn.getAttribute('data-service');
+    const detail = serviceDetails[key];
+    if (detail) {
+      serviceModalTitle.textContent = detail.title;
+      serviceModalBody.textContent = detail.body;
+      serviceModal.classList.add('active');
+    }
+  });
+});
+if (serviceModalClose) {
+  serviceModalClose.addEventListener('click', function() {
+    serviceModal.classList.remove('active');
+  });
+}
+serviceModal.addEventListener('click', function(e) {
+  if (e.target === serviceModal) {
+    serviceModal.classList.remove('active');
+  }
+}); 
