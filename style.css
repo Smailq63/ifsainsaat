@@ -170,7 +170,33 @@ p {
   box-shadow: 0 6px 24px rgba(15, 23, 42, 0.10);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.75);
+}
+
+.navbar-dark {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+.navbar-dark.scrolled {
+  background: rgba(15, 23, 42, 0.98) !important;
+}
+.navbar-dark .nav-menu li a {
+  color: var(--white) !important;
+}
+.navbar-dark .nav-menu li a::after {
+  background: var(--white) !important;
+}
+.navbar-dark .nav-menu li a.active {
+  color: var(--yellow) !important;
+}
+.navbar-dark .nav-menu li a.active::after {
+  background: var(--yellow) !important;
+}
+.navbar-dark .menu-toggle {
+  color: var(--white) !important;
+}
+.navbar-dark .logo {
+  color: var(--white) !important;
 }
 
 .nav-flex {
