@@ -29,17 +29,20 @@ const lightboxThumbnails = document.getElementById('lightbox-thumbnails');
 const lightboxVideo = document.getElementById('lightbox-video');
 
 const projectTitles = {
-  'proje1': 'İSTANBUL BÜYÜKÇEKMECE İMAROVA',
-  'proje2': 'AKILLI EV PROJESİ',
-  'proje3': 'ŞANLIURFA KONUT PROJELERİ',
+  'proje1': 'AKILLI EV PROJESİ',
+  'proje2': 'ALTIN VADİ MAŞUK PROJESİ',
+  'proje3': 'ALTIN VADİ SEYRANTEPE PROJESİ',
   'proje4': 'DİĞER PROJELER',
-  'proje5': 'ANTALYA PROJESİ (Devam Ediyor)'
+  'proje5': 'ANTALYA PROJESİ (Devam Ediyor)',
+  'proje6': 'İSTANBUL BÜYÜKÇEKMECE İMAROVA'
 };
 
 // Galeri görsellerini bul
 const galleryImages = document.querySelectorAll('.lightbox-trigger');
 const galleries = {
   'proje1': [
+    'images/proje1/001.jpeg',
+    'images/proje1/01.png',
     ...Array.from({ length: 10 }, (_, i) => `images/proje1/${i + 1}.jpg`),
     ...Array.from({ length: 16 }, (_, i) => `images/proje1/${i + 11}.jpeg`)
   ],
@@ -47,14 +50,17 @@ const galleries = {
     '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg'
   ].map(f => `images/proje2/${f}`),
   'proje3': [
-    '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg'
+    '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpeg', '14.jpeg', '15.jpeg'
   ].map(f => `images/proje3/${f}`),
   'proje4': [
-    '1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg'
+    '1.jpeg', '1.1.png', '2.jpeg', '2.2.png', '3.jpeg', '3.3.png', '4.jpeg', '4.4.png', '5.jpeg', '5.5.png', '6.jpeg', '6.6.png', '10.png', '11.png', '12.png', '13.png'
   ].map(f => `images/proje4/${f}`),
   'proje5': [
-    '32.mp4', '33.mp4', '01.jpeg', '02.jpeg', '03.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10jpeg.jpeg', '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg', '17jpeg.jpeg', '18.jpeg', '19.jpeg', '20.jpeg', '21.jpeg', '22.jpeg', '23.jpeg', '24.jpeg', '25.jpeg', '26.jpeg', '27.jpeg', '28.jpeg', '29.jpeg', '30.jpeg', '31.jpeg'
-  ].map(f => `images/proje5/${f}`)
+    '32.mp4', '33.mp4', '0.jpeg', '01.jpeg', '02.jpeg', '03.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10.jpeg', '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg', '17.jpeg', '18.jpeg', '19.jpeg', '20.jpeg', '21.jpeg', '22.jpeg', '23.jpeg', '24.jpeg', '25.jpeg', '26.jpeg', '27.jpeg', '28.jpeg', '29.jpeg', '30.jpeg', '31.jpeg'
+  ].map(f => `images/proje5/${f}`),
+  'proje6': [
+    '1.png', '2.png', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10.jpeg', '11.jpeg'
+  ].map(f => `images/proje6/${f}`)
 };
 
 let currentGallery = [];
@@ -466,7 +472,7 @@ function initCounters() {
 // Call initCounters when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initCounters();
-  
+
   // Initialize Lucide Icons
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
